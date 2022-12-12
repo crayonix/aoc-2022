@@ -35,3 +35,32 @@ for instruction in instructions:
         # print("Cycle " + str(current_cycle) + ": " + str(register_x))
 
 print("Part 1: " + str(sum(signal_strengths)))
+
+# Part 2
+
+register_x = 1
+current_cycle = 1
+cycle_milestones = [40, 80, 120, 160, 200, 240]
+
+for instruction in instructions:
+    for i in range(instruction[2]):
+        current_pixel = (current_cycle - 1) % 40
+
+        if instruction[0] == "noop":
+            if current_pixel in range(register_x-1, register_x+2):
+                print("#", end="")
+            else:
+                print(".", end="")
+            current_cycle += 1
+
+        elif instruction[0] == "addx":
+            if current_pixel in range(register_x-1, register_x+2):
+                print("#", end="")
+            else:
+                print(".", end="")
+            current_cycle += 1
+            if i == instruction[2] - 1:
+                register_x += instruction[1]
+
+        if current_cycle-1 in cycle_milestones:
+            print()
